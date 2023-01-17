@@ -1,5 +1,6 @@
 <?php
 require_once '../config/fungsi.php';
+require_once 'config/koneksi.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
