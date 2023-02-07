@@ -13,12 +13,19 @@ if (empty($nim) || empty($nama) || empty($alamat)) {
 } else {
 
     //cek nim
-    $cek = $con->query("SELECT * FROM mahasiswa WHERE nim = '$nim'");
+    $cek = $con->prepare("SELECT * FROM mahasiswa WHERE nim = ?");
+    $cek->bindParam(1, $nim);
+    $cek->execute();
 
     if ($cek->rowCount() == 0) {
-        $sql = "INSERT INTO mahasiswa VALUES ('$nim','$nama','$jurusan','$alamat')";
+        $sql = "INSERT INTO mahasiswa VALUES (?, ?, ?, ?)";
         //$con->exec($sql);
-        $simpan = $con->query($sql);
+        $simpan = $con->prepare($sql);
+        $simpan->bindParam(1, $nim);
+        $simpan->bindParam(2, $nama);
+        $simpan->bindParam(3, $jurusan);
+        $simpan->bindParam(4, $alamat);
+        $simpan->execute();
 
         if ($simpan->rowCount() > 0) {
             # berhasil
